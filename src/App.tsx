@@ -221,6 +221,41 @@ const CustomCursor = () => {
   );
 };
 
+const ThemeToggle = () => {
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    setIsDark(document.documentElement.classList.contains('dark'));
+  }, []);
+
+  const toggleTheme = () => {
+    if (document.documentElement.classList.contains('dark')) {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+      setIsDark(false);
+    } else {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+      setIsDark(true);
+    }
+  };
+
+  return (
+    <button 
+      onClick={toggleTheme}
+      className="relative w-8 h-8 md:w-10 md:h-10 rounded-full bg-black/5 dark:bg-white/10 backdrop-blur-md border border-black/10 dark:border-white/10 flex items-center justify-center transition-all duration-300 focus:outline-none ml-4 md:ml-8"
+      aria-label="Toggle Theme"
+    >
+      <svg className={`w-4 h-4 md:w-5 md:h-5 text-luxury-dark dark:hidden transition-transform duration-500 hover:rotate-45`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707m2.828 5.657a4 4 0 118 0 4 4 0 01-8 0z"></path>
+      </svg>
+      <svg className={`w-4 h-4 md:w-5 md:h-5 text-white hidden dark:block transition-transform duration-500 hover:-rotate-12`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+      </svg>
+    </button>
+  );
+};
+
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -243,15 +278,18 @@ const Navigation = () => {
       >
         <span className="text-[9px] md:text-[10px] tracking-[0.4em] md:tracking-[0.6em] uppercase font-light text-luxury-dark/40 hidden sm:block">Lagos / Atelier</span>
         
-        <h1 className="text-base md:text-lg font-serif italic tracking-[0.1em] text-luxury-dark/80">YNK</h1>
+        <h1 className="text-base md:text-lg font-serif italic tracking-[0.1em] text-luxury-dark/80 dark:text-white/90 transition-colors">YNK</h1>
 
-        <button 
-          onClick={() => setIsOpen(true)}
-          className="group flex flex-col items-end cursor-pointer gap-1.5 py-2"
-        >
-          <div className="w-5 h-[0.5px] bg-luxury-dark/60 group-hover:w-8 transition-all duration-700"></div>
-          <div className="w-8 h-[0.5px] bg-luxury-dark/60 group-hover:w-5 transition-all duration-700"></div>
-        </button>
+        <div className="flex items-center gap-4 md:gap-6">
+          <ThemeToggle />
+          <button 
+            onClick={() => setIsOpen(true)}
+            className="group flex flex-col items-end cursor-pointer gap-1.5 py-2"
+          >
+            <div className="w-5 h-[0.5px] bg-luxury-dark/60 dark:bg-white/70 group-hover:w-8 transition-all duration-700"></div>
+            <div className="w-8 h-[0.5px] bg-luxury-dark/60 dark:bg-white/70 group-hover:w-5 transition-all duration-700"></div>
+          </button>
+        </div>
       </motion.nav>
 
       <AnimatePresence>
@@ -306,7 +344,7 @@ const TestimonialCard = ({ id, name, handle, text }: { id: string, name: string,
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="min-w-[85vw] md:min-w-0 md:w-full p-6 md:p-10 bg-white/40 backdrop-blur-xl border border-stone-200/50 rounded-[40px] shadow-sm flex flex-col justify-between snap-center"
+      className="min-w-[85vw] md:min-w-0 md:w-full p-6 md:p-10 bg-white/40 dark:bg-white/5 backdrop-blur-xl border border-stone-200/50 dark:border-stone-800/50 rounded-[40px] shadow-sm flex flex-col justify-between snap-center transition-colors duration-500"
     >
       <div>
         <div className="flex justify-between items-start mb-8">
@@ -317,25 +355,25 @@ const TestimonialCard = ({ id, name, handle, text }: { id: string, name: string,
             ))}
           </div>
         </div>
-        <p className={`text-base leading-relaxed text-stone-600 font-light italic transition-all duration-500 ${!isExpanded && isLong ? 'line-clamp-4' : ''}`}>
+        <p className={`text-base leading-relaxed text-stone-600 dark:text-stone-300 font-light italic transition-all duration-500 ${!isExpanded && isLong ? 'line-clamp-4' : ''}`}>
           "{text}"
         </p>
         {isLong && (
           <button 
             onClick={() => setIsExpanded(!isExpanded)}
-            className="mt-4 text-[10px] tracking-[0.3em] uppercase text-luxury-dark font-bold hover:opacity-60 transition-opacity"
+            className="mt-4 text-[10px] tracking-[0.3em] uppercase text-luxury-dark dark:text-white font-bold hover:opacity-60 transition-opacity"
           >
             {isExpanded ? 'Read Less' : 'Read More'}
           </button>
         )}
       </div>
-      <div className="mt-12 flex items-center gap-4 border-t border-stone-100 pt-8">
-        <div className="w-10 h-10 rounded-full bg-luxury-beige flex items-center justify-center text-[10px] font-serif italic text-stone-400 shrink-0">
+      <div className="mt-12 flex items-center gap-4 border-t border-stone-100 dark:border-stone-800/50 pt-8 transition-colors duration-500">
+        <div className="w-10 h-10 rounded-full bg-luxury-beige dark:bg-stone-800 flex items-center justify-center text-[10px] font-serif italic text-stone-400 dark:text-stone-500 shrink-0 transition-colors duration-500">
           {name[0]}
         </div>
         <div className="flex flex-col">
-          <span className="text-[11px] font-bold tracking-[0.2em] uppercase text-stone-900">{name}</span>
-          <span className="text-[9px] tracking-[0.3em] uppercase text-stone-400 font-light mt-1">{handle}</span>
+          <span className="text-[11px] font-bold tracking-[0.2em] uppercase text-stone-900 dark:text-white transition-colors duration-500">{name}</span>
+          <span className="text-[9px] tracking-[0.3em] uppercase text-stone-400 font-light mt-1 transition-colors duration-500">{handle}</span>
         </div>
       </div>
     </motion.div>
@@ -352,13 +390,13 @@ const SectionHeading = ({ title, subtitle }: { title: string; subtitle?: string 
         initial={{ scaleX: 0 }}
         whileInView={{ scaleX: 1 }}
         transition={{ duration: 1.5, ease: "circOut" }}
-        className="h-[0.5px] w-16 md:w-12 bg-stone-300 origin-left" 
+        className="h-[0.5px] w-16 md:w-12 bg-stone-300 dark:bg-stone-600 origin-left transition-colors duration-500" 
       />
-      <span className="text-[9px] md:text-[10px] tracking-[0.5em] md:tracking-[0.4em] uppercase text-stone-400 font-light">
+      <span className="text-[9px] md:text-[10px] tracking-[0.5em] md:tracking-[0.4em] uppercase text-stone-400 font-light transition-colors duration-500">
         {subtitle}
       </span>
     </div>
-    <h2 className="text-3xl sm:text-4xl md:text-6xl font-serif tracking-tight leading-tight md:leading-normal">{title}</h2>
+    <h2 className="text-3xl sm:text-4xl md:text-6xl font-serif tracking-tight leading-tight md:leading-normal dark:text-white transition-colors duration-500">{title}</h2>
   </motion.div>
 );
 
@@ -449,7 +487,7 @@ const MainContent: React.FC = () => {
 
   return (
     <SmoothScroll key="content">
-      <div ref={scrollRef} className="relative min-h-screen selection:bg-stone-200 overflow-x-hidden bg-luxury-cream">
+      <div ref={scrollRef} className="relative min-h-screen selection:bg-stone-200 overflow-x-hidden bg-luxury-cream dark:bg-[#121212] transition-colors duration-500">
         {/* Background Accents */}
         <div className="absolute top-0 left-0 w-[40vw] h-[40vw] bg-emerald-100/30 rounded-full blur-[150px] pointer-events-none" />
         <div className="absolute bottom-0 right-0 w-[40vw] h-[40vw] bg-orange-100/30 rounded-full blur-[150px] pointer-events-none" />
@@ -571,7 +609,7 @@ const MainContent: React.FC = () => {
         </section>
 
         {/* Collection Section */}
-        <section id="collection" className="py-24 md:py-56 overflow-hidden bg-white">
+        <section id="collection" className="py-24 md:py-56 overflow-hidden bg-white dark:bg-[#121212] transition-colors duration-500">
           <div className="px-4 md:px-20 max-w-[1920px] mx-auto mb-16 md:mb-20">
             <SectionHeading title="Premium Collections" subtitle="Agency Grade Selection" />
           </div>
@@ -649,7 +687,7 @@ const MainContent: React.FC = () => {
         </section>
 
         {/* About Section */}
-        <section id="about" className="py-24 md:py-48 bg-luxury-beige/30 px-6 md:px-20 overflow-hidden">
+        <section id="about" className="py-24 md:py-48 bg-luxury-beige/30 dark:bg-[#1c1c1c] transition-colors duration-500 px-6 md:px-20 overflow-hidden">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-24 md:gap-20">
             <motion.div 
               initial={{ opacity: 0, scale: 1.05 }}
@@ -661,8 +699,8 @@ const MainContent: React.FC = () => {
               <div className="relative w-full h-full rounded-[20px] md:rounded-[24px] overflow-hidden bg-luxury-cream">
                 {/* Editorial Typography Overlay */}
                 <div className="absolute top-8 md:top-10 inset-x-0 z-20 flex flex-col items-center pointer-events-none">
-                  <span className="text-[8px] md:text-[10px] tracking-[0.5em] uppercase text-stone-400 mb-2 md:mb-4 font-light">The Manifesto</span>
-                  <h3 className="text-5xl md:text-8xl font-serif text-stone-800/20 tracking-tighter mix-blend-multiply">CRAFT</h3>
+                  <span className="text-[8px] md:text-[10px] tracking-[0.5em] uppercase text-stone-400 dark:text-stone-500 mb-2 md:mb-4 font-light">The Manifesto</span>
+                  <h3 className="text-5xl md:text-8xl font-serif text-stone-800/20 dark:text-white/10 tracking-tighter mix-blend-multiply dark:mix-blend-normal">CRAFT</h3>
                 </div>
 
                 <video 
@@ -689,7 +727,7 @@ const MainContent: React.FC = () => {
             
             <div className="w-full md:w-1/2 flex flex-col gap-10">
               <SectionHeading title="Identity & Craft" subtitle="The Founder" />
-              <div className="space-y-8 text-stone-600 leading-relaxed font-light text-lg md:text-xl max-w-xl">
+              <div className="space-y-8 text-stone-600 dark:text-stone-400 leading-relaxed font-light text-lg md:text-xl max-w-xl">
                 <p>
                   Founded on the spirit of Psalm 118:23 — <span className="italic">"This is the Lord's doing; it is marvelous in our eyes"</span> — MADE BY YNK stands at the intersection of spiritual vision and meticulous craftsmanship.
                 </p>
@@ -709,7 +747,7 @@ const MainContent: React.FC = () => {
         </section>
 
         {/* Reviews Section */}
-        <section id="reviews" className="py-24 md:py-48 bg-luxury-cream relative overflow-x-hidden">
+        <section id="reviews" className="py-24 md:py-48 bg-luxury-cream dark:bg-[#121212] transition-colors duration-500 relative overflow-x-hidden">
           {/* Subtle Accent Glows */}
           <div className="absolute top-0 left-0 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-luxury-gold/10 rounded-full blur-[80px] md:blur-[120px] -translate-x-1/2 -translate-y-1/2" />
           
@@ -723,16 +761,16 @@ const MainContent: React.FC = () => {
                     <div key={i} className="w-2.5 h-2.5 bg-luxury-gold rounded-full" />
                   ))}
                 </div>
-                <h2 className="text-3xl md:text-6xl font-serif tracking-tight leading-tight">What our clients<br/><span className="italic opacity-60">say about us</span></h2>
+                <h2 className="text-3xl md:text-6xl font-serif tracking-tight leading-tight dark:text-white">What our clients<br/><span className="italic opacity-60">say about us</span></h2>
               </div>
               <div className="hidden md:flex gap-16 text-[10px] tracking-[0.4em] uppercase text-stone-400 font-light">
                 <div className="flex flex-col gap-2">
-                  <span className="text-2xl font-serif text-stone-900 italic tracking-tighter">1200+</span>
-                  <span>Reviews</span>
+                  <span className="text-2xl font-serif text-stone-900 dark:text-white italic tracking-tighter">1200+</span>
+                  <span className="dark:text-stone-400">Reviews</span>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <span className="text-2xl font-serif text-stone-900 italic tracking-tighter">10k+</span>
-                  <span>Clients</span>
+                  <span className="text-2xl font-serif text-stone-900 dark:text-white italic tracking-tighter">10k+</span>
+                  <span className="dark:text-stone-400">Clients</span>
                 </div>
               </div>
             </div>
@@ -753,13 +791,13 @@ const MainContent: React.FC = () => {
             </div>
 
             {/* Mobile Stats (Visible only on small screens) */}
-            <div className="flex md:hidden justify-between mt-16 pt-12 border-t border-stone-200">
+            <div className="flex md:hidden justify-between mt-16 pt-12 border-t border-stone-200 dark:border-stone-800">
               <div className="flex flex-col gap-1">
-                <span className="text-2xl font-serif text-stone-900 italic tracking-tighter">1200+</span>
-                <span className="text-[8px] tracking-[0.3em] uppercase text-stone-400">Reviews</span>
+                <span className="text-2xl font-serif text-stone-900 dark:text-white italic tracking-tighter">1200+</span>
+                <span className="text-[8px] tracking-[0.3em] uppercase text-stone-400 dark:text-stone-500">Reviews</span>
               </div>
               <div className="flex flex-col gap-1 items-end">
-                <span className="text-2xl font-serif text-stone-900 italic tracking-tighter">10,000+</span>
+                <span className="text-2xl font-serif text-stone-900 dark:text-white italic tracking-tighter">10,000+</span>
                 <span className="text-[8px] tracking-[0.3em] uppercase text-stone-400">Happy Clients</span>
               </div>
             </div>
@@ -773,13 +811,13 @@ const MainContent: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 1.5, ease: luxuryEase }}
-            className="max-w-5xl mx-auto bg-luxury-beige/50 p-12 md:p-32 text-center rounded-[30px] md:rounded-[40px] relative overflow-hidden"
+            className="max-w-5xl mx-auto bg-luxury-beige/50 dark:bg-white/5 p-12 md:p-32 text-center rounded-[30px] md:rounded-[40px] relative overflow-hidden transition-colors duration-500"
           >
             <div className="absolute top-0 left-0 w-full h-[0.5px] bg-gradient-to-r from-transparent via-stone-400/20 to-transparent" />
             
-            <span className="text-[10px] tracking-[0.6em] uppercase text-stone-400 mb-10 block font-light">Exclusivity Awaits</span>
-            <h2 className="text-5xl md:text-7xl font-serif mb-12 tracking-tight">Virtual Consultation</h2>
-            <p className="text-stone-500 mb-16 max-w-xl mx-auto text-lg md:text-xl leading-relaxed font-light italic">
+            <span className="text-[10px] tracking-[0.6em] uppercase text-stone-400 dark:text-stone-500 mb-10 block font-light">Exclusivity Awaits</span>
+            <h2 className="text-5xl md:text-7xl font-serif mb-12 tracking-tight dark:text-white">Virtual Consultation</h2>
+            <p className="text-stone-500 dark:text-stone-400 mb-16 max-w-xl mx-auto text-lg md:text-xl leading-relaxed font-light italic">
               Secure your private session with our designer to discuss your vision. Availability is strictly limited.
             </p>
             
@@ -806,20 +844,20 @@ const MainContent: React.FC = () => {
         </section>
 
         {/* Newsletter */}
-        <section className="py-32 md:py-48 border-t border-stone-100 px-6 bg-stone-50/10">
+        <section className="py-32 md:py-48 border-t border-stone-100 dark:border-stone-800 px-6 bg-stone-50/10 dark:bg-[#1c1c1c] transition-colors duration-500">
           <div className="max-w-4xl mx-auto text-center">
             <motion.div {...fadeInUp}>
-              <h3 className="text-4xl md:text-5xl font-serif mb-12 italic tracking-tight text-luxury-dark/90">The Editorial Subscription</h3>
-              <p className="text-stone-400 text-[9px] tracking-[0.6em] uppercase mb-20 font-light">Curated visions & inner-circle access</p>
+              <h3 className="text-4xl md:text-5xl font-serif mb-12 italic tracking-tight text-luxury-dark/90 dark:text-white/90">The Editorial Subscription</h3>
+              <p className="text-stone-400 dark:text-stone-500 text-[9px] tracking-[0.6em] uppercase mb-20 font-light">Curated visions & inner-circle access</p>
               
               <form className="flex flex-col sm:flex-row gap-16 max-w-2xl mx-auto items-end" onSubmit={(e) => e.preventDefault()}>
                 <div className="flex-grow relative group w-full">
                   <input 
                     type="email" 
                     placeholder=" " 
-                    className="w-full bg-transparent border-b border-stone-200 px-0 py-5 text-stone-600 focus:outline-none focus:border-luxury-dark transition-all duration-[1000ms] font-light text-base tracking-wide peer"
+                    className="w-full bg-transparent border-b border-stone-200 dark:border-stone-700 px-0 py-5 text-stone-600 dark:text-white focus:outline-none focus:border-luxury-dark dark:focus:border-white transition-all duration-[1000ms] font-light text-base tracking-wide peer"
                   />
-                  <label className="absolute left-0 top-5 text-stone-300 text-[10px] tracking-[0.5em] uppercase transition-all duration-700 pointer-events-none peer-focus:-top-6 peer-focus:text-[9px] peer-focus:text-luxury-dark peer-[:not(:placeholder-shown)]:-top-6 peer-[:not(:placeholder-shown)]:text-[9px]">
+                  <label className="absolute left-0 top-5 text-stone-300 dark:text-stone-500 text-[10px] tracking-[0.5em] uppercase transition-all duration-700 pointer-events-none peer-focus:-top-6 peer-focus:text-[9px] peer-focus:text-luxury-dark dark:peer-focus:text-white peer-[:not(:placeholder-shown)]:-top-6 peer-[:not(:placeholder-shown)]:text-[9px]">
                     Email Address
                   </label>
                 </div>
@@ -837,11 +875,11 @@ const MainContent: React.FC = () => {
         </section>
 
         {/* Footer */}
-        <footer className="bg-luxury-cream pt-32 pb-20 px-8 md:px-20 border-t border-stone-100">
+        <footer className="bg-luxury-cream dark:bg-[#121212] pt-32 pb-20 px-8 md:px-20 border-t border-stone-100 dark:border-stone-800 transition-colors duration-500">
           <div className="max-w-[1920px] mx-auto flex flex-col md:flex-row justify-between gap-24">
             <div className="max-w-md">
-              <h4 className="text-4xl font-serif mb-10 tracking-tight italic text-luxury-dark/90">MADE BY YNK</h4>
-              <p className="text-stone-400 text-base mb-12 leading-relaxed font-light">
+              <h4 className="text-4xl font-serif mb-10 tracking-tight italic text-luxury-dark/90 dark:text-white/90">MADE BY YNK</h4>
+              <p className="text-stone-400 dark:text-stone-500 text-base mb-12 leading-relaxed font-light">
                 An artisan atelier specializing in bespoke bridal and luxury signature pieces. 
                 Dedicated to the manifestation of dreams through the medium of divine craftsmanship.
               </p>
@@ -851,7 +889,7 @@ const MainContent: React.FC = () => {
                     key={social}
                     whileHover={{ y: -2, opacity: 0.6 }} 
                     href="#" 
-                    className="text-luxury-dark text-[10px] tracking-[0.4em] uppercase pb-2 border-b border-luxury-dark/20 hover:border-luxury-dark transition-all duration-700"
+                    className="text-luxury-dark dark:text-white text-[10px] tracking-[0.4em] uppercase pb-2 border-b border-luxury-dark/20 dark:border-white/20 hover:border-luxury-dark dark:hover:border-white transition-all duration-700"
                   >
                     {social}
                   </motion.a>
@@ -869,14 +907,14 @@ const MainContent: React.FC = () => {
               </div>
               
               <div>
-                <span className="text-[10px] tracking-[0.6em] uppercase text-luxury-dark/40 block mb-12 font-light">Directory</span>
-                <ul className="space-y-6 text-stone-500 text-[10px] tracking-[0.5em] uppercase font-light">
+                <span className="text-[10px] tracking-[0.6em] uppercase text-luxury-dark/40 dark:text-stone-500 block mb-12 font-light">Directory</span>
+                <ul className="space-y-6 text-stone-500 dark:text-stone-400 text-[10px] tracking-[0.5em] uppercase font-light">
                   {['Manifesto', 'The Collections', 'The Designer', 'Legal Notice'].map((item) => (
                     <li key={item}>
                       <motion.a 
                         whileHover={{ x: 5 }} 
                         href={`#${item.toLowerCase().replace(' ', '')}`} 
-                        className="hover:text-luxury-dark transition-all duration-500"
+                        className="hover:text-luxury-dark dark:hover:text-white transition-all duration-500"
                       >
                         {item}
                       </motion.a>
@@ -887,11 +925,11 @@ const MainContent: React.FC = () => {
             </div>
           </div>
           
-          <div className="mt-32 pt-12 border-t border-stone-100 flex flex-col md:flex-row justify-between items-center gap-12 text-center md:text-left">
-            <p className="text-[9px] tracking-[0.8em] uppercase text-stone-400 font-light italic">© 2026 MADE BY YNK / BESPOKE ARTISTRY</p>
+          <div className="mt-32 pt-12 border-t border-stone-100 dark:border-stone-800 flex flex-col md:flex-row justify-between items-center gap-12 text-center md:text-left transition-colors duration-500">
+            <p className="text-[9px] tracking-[0.8em] uppercase text-stone-400 dark:text-stone-500 font-light italic">© 2026 MADE BY YNK / BESPOKE ARTISTRY</p>
             <div className="flex items-center gap-6 text-[9px] tracking-[0.4em] uppercase text-stone-500/60 font-light">
               <span>You dream, we create</span>
-              <div className="w-2 h-[0.5px] bg-stone-300" />
+              <div className="w-2 h-[0.5px] bg-stone-300 dark:bg-stone-600" />
               <span className="italic">Divine Craftsmanship</span>
             </div>
           </div>
