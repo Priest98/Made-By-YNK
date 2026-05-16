@@ -349,7 +349,7 @@ const CollectionCard = ({ video, title, category, isActive, index, gradient }: {
         loop 
         muted 
         playsInline 
-        preload="metadata"
+        preload="none"
         className={`collection-video absolute inset-0 w-full h-full object-cover transition-all duration-1000 ${isActive ? 'saturate-100 scale-105' : 'saturate-[0.8] opacity-90 scale-100'}`}
       >
         <source src={video} type="video/mp4" />
@@ -465,6 +465,7 @@ const MainContent: React.FC = () => {
               loop 
               muted 
               playsInline 
+              preload="auto"
               className="w-full h-full object-cover grayscale-[0.2] opacity-70 md:opacity-80"
             >
               <source src="/hero-page.mp4#t=,18" type="video/mp4" />
@@ -486,6 +487,7 @@ const MainContent: React.FC = () => {
                 loop 
                 muted 
                 playsInline 
+                preload="auto"
                 className="w-full h-full object-cover opacity-70"
               >
                 <source src="/hero-page-2.mp4#t=10,28" type="video/mp4" />
@@ -640,6 +642,7 @@ const MainContent: React.FC = () => {
                   controls
                   loop 
                   playsInline 
+                  preload="none"
                   className="w-full h-full object-cover transition-transform duration-[3s] ease-out grayscale-[0.1] group-hover:scale-105"
                 >
                   <source src="/designer.mp4" type="video/mp4" />
