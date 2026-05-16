@@ -316,12 +316,14 @@ const SectionHeading = ({ title, subtitle }: { title: string; subtitle?: string 
 
 const CollectionCard = ({ video, title, category, isActive, index, gradient }: { video: string, title: string, category: string, isActive: boolean, index: number, gradient: string }) => (
   <motion.div
+    whileHover={{ scale: isActive ? 1.06 : 0.98 }}
+    whileTap={{ scale: 0.95, filter: "brightness(1.2)", boxShadow: "0 0 30px rgba(255,255,255,0.3)" }}
     animate={{ 
       scale: isActive ? 1.05 : 0.95,
       opacity: isActive ? 1 : 0.6,
     }}
     transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-    className={`relative h-[65vh] md:h-[600px] min-w-[85vw] md:min-w-[420px] rounded-[32px] overflow-hidden shadow-2xl flex-shrink-0 group ${gradient}`}
+    className={`relative h-[65vh] md:h-[600px] min-w-[85vw] md:min-w-[420px] rounded-[32px] overflow-hidden shadow-2xl flex-shrink-0 group ${gradient} cursor-pointer`}
   >
     {/* Video Backdrop */}
     <video 
@@ -552,31 +554,46 @@ const MainContent: React.FC = () => {
               ))}
             </motion.div>
 
-            {/* Pagination Controls */}
-            <div className="flex justify-center items-center gap-8 mt-16">
-              <motion.button 
-                whileHover={{ scale: 1.1, backgroundColor: "#e5e5e5" }}
-                whileTap={{ scale: 0.9 }}
-                onClick={() => setActiveIndex(prev => Math.max(0, prev - 1))}
-                className="w-12 h-12 rounded-full border border-stone-200 flex items-center justify-center text-stone-400 transition-colors"
+            {/* Controls */}
+            <div className="mt-16 flex items-center justify-center gap-12 md:gap-16">
+              <button 
+                onClick={() => {
+                  const prevIndex = Math.max(0, activeIndex - 1);
+                  if (carouselRef.current) {
+                    const items = carouselRef.current.children;
+                    if (items[prevIndex]) {
+                      items[prevIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                    }
+                  }
+                }}
+                className="w-16 h-16 md:w-20 md:h-20 rounded-full border border-stone-200 flex items-center justify-center hover:bg-stone-50 transition-all group"
               >
-                <X size={16} className="rotate-45" /> 
-              </motion.button>
-              
-              <div className="flex gap-2">
+                <Plus className="text-stone-400 group-hover:rotate-90 transition-transform duration-500" size={20} strokeWidth={1} />
+              </button>
+
+              <div className="flex gap-3">
                 {items.map((_, i) => (
-                  <div key={i} className={`w-1 h-1 rounded-full transition-all duration-500 ${activeIndex === i ? 'w-4 bg-stone-800' : 'bg-stone-200'}`} />
+                  <div 
+                    key={i}
+                    className={`h-1 transition-all duration-700 rounded-full ${i === activeIndex ? 'w-10 bg-luxury-dark' : 'w-2 bg-stone-200'}`}
+                  />
                 ))}
               </div>
 
-              <motion.button 
-                whileHover={{ scale: 1.1, backgroundColor: "#e5e5e5" }}
-                whileTap={{ scale: 0.9 }}
-                onClick={() => setActiveIndex(prev => Math.min(items.length - 1, prev + 1))}
-                className="w-12 h-12 rounded-full border border-stone-200 flex items-center justify-center text-stone-400 transition-colors"
+              <button 
+                onClick={() => {
+                  const nextIndex = Math.min(items.length - 1, activeIndex + 1);
+                  if (carouselRef.current) {
+                    const elements = carouselRef.current.children;
+                    if (elements[nextIndex]) {
+                      elements[nextIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                    }
+                  }
+                }}
+                className="w-16 h-16 md:w-20 md:h-20 rounded-full border border-stone-200 flex items-center justify-center hover:bg-stone-50 transition-all group"
               >
-                <ArrowRight size={16} />
-              </motion.button>
+                <ArrowRight className="text-stone-400 group-hover:translate-x-1 transition-transform" size={20} strokeWidth={1} />
+              </button>
             </div>
           </div>
         </section>
