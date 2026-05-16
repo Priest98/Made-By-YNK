@@ -382,15 +382,14 @@ const CollectionCard = ({ video, title, category, isActive, index, gradient }: {
         muted 
         playsInline 
         preload="auto"
-        poster="/collection_poster.png"
-        className={`collection-video absolute inset-0 w-full h-full object-cover z-0 transition-all duration-1000 ${isActive ? 'saturate-100 scale-105' : 'saturate-[0.8] opacity-90 scale-100'}`}
+        className={`collection-video absolute inset-0 w-full h-full object-cover z-10 transition-all duration-1000 ${isActive ? 'saturate-100 scale-105' : 'saturate-[0.8] opacity-90 scale-100'}`}
         style={{ transition: 'opacity 0.5s ease, transform 1s ease, filter 1s ease' }}
       >
         <source src={video} type="video/mp4" />
       </video>
 
       {/* Subtle Typography Gradient (Bottom 30%) */}
-      <div className="absolute bottom-0 inset-x-0 h-[40%] bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
+      <div className="absolute bottom-0 inset-x-0 h-[40%] bg-gradient-to-t from-black/80 via-black/20 to-transparent z-20" />
 
       {/* Glassmorphic Play Button */}
       <div className={`absolute bottom-6 right-6 md:bottom-8 md:right-8 z-20 transition-opacity duration-700 ${isActive ? 'opacity-100' : 'opacity-60'}`}>
