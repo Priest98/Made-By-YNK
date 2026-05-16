@@ -683,15 +683,15 @@ const MainContent: React.FC = () => {
 
                 <video 
                   ref={founderVideoRef}
-                  controls
+                  autoPlay
                   loop 
+                  muted
                   playsInline 
-                  preload="metadata"
-                  poster="/designer_poster.png"
+                  preload="auto"
                   className="w-full h-full object-cover transition-all duration-[3s] ease-out grayscale-[0.1] group-hover:scale-105"
                   style={{ transition: 'opacity 0.7s ease, transform 3s ease' }}
                 >
-                  <source src="/designer.mp4" type="video/mp4" />
+                  <source src="/designer.mp4#t=7" type="video/mp4" />
                 </video>
 
                 {/* Decorative Bottom Icon */}
