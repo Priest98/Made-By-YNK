@@ -295,6 +295,51 @@ const Navigation = () => {
   );
 };
 
+const TestimonialCard = ({ id, name, handle, text }: { id: string, name: string, handle: string, text: string }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const isLong = text.length > 140;
+
+  return (
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="min-w-[85vw] md:min-w-0 md:w-full p-6 md:p-10 bg-white/40 backdrop-blur-xl border border-stone-200/50 rounded-[40px] shadow-sm flex flex-col justify-between snap-center"
+    >
+      <div>
+        <div className="flex justify-between items-start mb-8">
+          <span className="text-[10px] text-stone-400 font-mono tracking-widest">({id})</span>
+          <div className="flex gap-1">
+            {[...Array(5)].map((_, i) => (
+              <div key={i} className="w-2 h-2 bg-luxury-gold rounded-full" />
+            ))}
+          </div>
+        </div>
+        <p className={`text-base leading-relaxed text-stone-600 font-light italic transition-all duration-500 ${!isExpanded && isLong ? 'line-clamp-4' : ''}`}>
+          "{text}"
+        </p>
+        {isLong && (
+          <button 
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="mt-4 text-[10px] tracking-[0.3em] uppercase text-luxury-dark font-bold hover:opacity-60 transition-opacity"
+          >
+            {isExpanded ? 'Read Less' : 'Read More'}
+          </button>
+        )}
+      </div>
+      <div className="mt-12 flex items-center gap-4 border-t border-stone-100 pt-8">
+        <div className="w-10 h-10 rounded-full bg-luxury-beige flex items-center justify-center text-[10px] font-serif italic text-stone-400 shrink-0">
+          {name[0]}
+        </div>
+        <div className="flex flex-col">
+          <span className="text-[11px] font-bold tracking-[0.2em] uppercase text-stone-900">{name}</span>
+          <span className="text-[9px] tracking-[0.3em] uppercase text-stone-400 font-light mt-1">{handle}</span>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
 const SectionHeading = ({ title, subtitle }: { title: string; subtitle?: string }) => (
   <motion.div
     {...fadeInUp}
@@ -689,102 +734,60 @@ const MainContent: React.FC = () => {
         </section>
 
         {/* Reviews Section */}
-        <section id="reviews" className="py-24 md:py-64 bg-luxury-cream relative overflow-x-hidden">
+        <section id="reviews" className="py-24 md:py-48 bg-luxury-cream relative overflow-x-hidden">
           {/* Subtle Accent Glows */}
           <div className="absolute top-0 left-0 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-luxury-gold/10 rounded-full blur-[80px] md:blur-[120px] -translate-x-1/2 -translate-y-1/2" />
           
-          <div className="px-4 md:px-20 max-w-[1920px] mx-auto relative min-h-[900px] flex flex-col justify-center overflow-x-hidden">
+          <div className="max-w-[1920px] mx-auto relative px-4 md:px-20 overflow-x-hidden">
             
-            {/* Stars */}
-            <div className="absolute top-0 left-4 md:left-20 flex gap-1 mb-12">
-              {[...Array(5)].map((_, i) => (
-                <div key={i} className="w-2.5 h-2.5 bg-luxury-gold/40 rounded-full scale-[0.8]" />
-              ))}
-            </div>
-
-            {/* Central Overlapping Typography */}
-            <div className="relative flex flex-col items-center justify-center text-center z-10 pointer-events-none mb-12 md:mb-0 w-full overflow-hidden">
-              <motion.h2 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1.5 }}
-                className="text-[18vw] md:text-[10vw] font-serif text-stone-900/5 leading-none italic tracking-tighter whitespace-nowrap"
-              >
-                What
-              </motion.h2>
-              <motion.h2 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1.5, delay: 0.2 }}
-                className="text-[18vw] md:text-[10vw] font-serif text-stone-900/10 leading-none italic tracking-tighter -mt-[6vw] md:-mt-[5vw] ml-[10vw] whitespace-nowrap"
-              >
-                they say?
-              </motion.h2>
-            </div>
-
-            {/* Testimonial Card 1 (Top Right) */}
-            <motion.div 
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 1.2, delay: 0.4 }}
-              className="md:absolute top-0 right-20 w-full md:w-[400px] p-8 md:p-10 bg-white/40 backdrop-blur-xl border border-stone-200/50 rounded-[40px] shadow-sm mt-12 md:mt-0 relative z-30"
-            >
-              <span className="text-[10px] text-stone-400 font-mono">(01)</span>
-              <p className="mt-8 text-base md:text-lg leading-relaxed text-stone-600 font-light italic">
-                "The bridal gown exceeded every dream I had. It wasn't just a dress; it was a manifestation of my personality."
-              </p>
-              <div className="mt-10 flex flex-col items-end">
-                <span className="text-[11px] font-bold tracking-[0.3em] uppercase text-stone-900">Adunni O.</span>
-                <span className="text-[9px] tracking-[0.4em] uppercase text-stone-400 font-light mt-1">@adunni_luxury</span>
+            {/* Header Area */}
+            <div className="flex flex-col md:flex-row justify-between items-end mb-16 md:mb-24 gap-8">
+              <div className="max-w-xl">
+                <div className="flex gap-1 mb-6">
+                  {[...Array(5)].map((_, i) => (
+                    <div key={i} className="w-2.5 h-2.5 bg-luxury-gold rounded-full" />
+                  ))}
+                </div>
+                <h2 className="text-3xl md:text-6xl font-serif tracking-tight leading-tight">What our clients<br/><span className="italic opacity-60">say about us</span></h2>
               </div>
-            </motion.div>
-
-            {/* Testimonial Card 2 (Middle Left) */}
-            <motion.div 
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 1.2, delay: 0.6 }}
-              className="md:absolute top-1/3 left-10 w-full md:w-[380px] p-8 md:p-10 bg-white/60 backdrop-blur-xl border border-stone-200/50 rounded-[40px] shadow-sm mt-16 md:mt-0 z-20 relative"
-            >
-              <span className="text-[10px] text-stone-400 font-mono">(02)</span>
-              <p className="mt-8 text-base md:text-lg leading-relaxed text-stone-600 font-light italic">
-                "Precision, elegance, and soul. YNK doesn't just design, she transforms. A truly premium Lagos experience."
-              </p>
-              <div className="mt-10 flex flex-col items-end">
-                <span className="text-[11px] font-bold tracking-[0.3em] uppercase text-stone-900">Boluwatife S.</span>
-                <span className="text-[9px] tracking-[0.4em] uppercase text-stone-400 font-light mt-1">@bolu_styles</span>
-              </div>
-            </motion.div>
-
-            {/* Testimonial Card 3 (Bottom Right) */}
-            <motion.div 
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.2, delay: 0.8 }}
-              className="md:absolute bottom-10 right-[30%] w-full md:w-[380px] p-8 md:p-10 bg-white/40 backdrop-blur-xl border border-stone-200/50 rounded-[40px] shadow-sm mt-16 md:mt-0 relative"
-            >
-              <span className="text-[10px] text-stone-400 font-mono">(03)</span>
-              <p className="mt-8 text-base md:text-lg leading-relaxed text-stone-600 font-light italic">
-                "The attention to detail in my bespoke suit was peerless. Hands down the best atelier service in West Africa."
-              </p>
-              <div className="mt-10 flex flex-col items-end">
-                <span className="text-[11px] font-bold tracking-[0.3em] uppercase text-stone-900">Prince D.</span>
-                <span className="text-[9px] tracking-[0.4em] uppercase text-stone-400 font-light mt-1">@dp_bespoke</span>
-              </div>
-            </motion.div>
-
-            {/* Statistics (Bottom Right) */}
-            <div className="md:absolute bottom-0 right-10 flex gap-16 md:gap-20 mt-20 md:mt-0">
-              <div className="flex flex-col gap-2">
-                <span className="text-4xl md:text-5xl font-serif text-stone-900 tracking-tighter italic">1200+</span>
-                <span className="text-[10px] tracking-[0.4em] uppercase text-stone-400 font-light">Reviews</span>
-              </div>
-              <div className="flex flex-col gap-2">
-                <span className="text-4xl md:text-5xl font-serif text-stone-900 tracking-tighter italic">10,000+</span>
-                <span className="text-[10px] tracking-[0.4em] uppercase text-stone-400 font-light">Happy Clients</span>
+              <div className="hidden md:flex gap-16 text-[10px] tracking-[0.4em] uppercase text-stone-400 font-light">
+                <div className="flex flex-col gap-2">
+                  <span className="text-2xl font-serif text-stone-900 italic tracking-tighter">1200+</span>
+                  <span>Reviews</span>
+                </div>
+                <div className="flex flex-col gap-2">
+                  <span className="text-2xl font-serif text-stone-900 italic tracking-tighter">10k+</span>
+                  <span>Clients</span>
+                </div>
               </div>
             </div>
 
+            {/* Testimonials Layout: Carousel on Mobile, Grid on Tablet/Desktop */}
+            <div className="relative">
+              <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10 overflow-x-auto md:overflow-x-visible no-scrollbar snap-x snap-mandatory -mx-4 px-4 md:mx-0 md:px-0">
+                
+                {/* Review Card Component Logic (Repeat for 3 reviews) */}
+                {[
+                  { id: "01", name: "Adunni O.", handle: "@adunni_luxury", text: "The bridal gown exceeded every dream I had. It wasn't just a dress; it was a manifestation of my personality. The attention to detail and the way it fit me was absolutely peerless. I felt like a queen on my special day, and I can't thank YNK enough for her vision and craftsmanship." },
+                  { id: "02", name: "Boluwatife S.", handle: "@bolu_styles", text: "Precision, elegance, and soul. YNK doesn't just design, she transforms. A truly premium Lagos experience that rivals anything I've seen in London or Paris. The bespoke suit fits like a second skin, and the fabric quality is simply out of this world." },
+                  { id: "03", name: "Prince D.", handle: "@dp_bespoke", text: "The attention to detail in my bespoke suit was peerless. Hands down the best atelier service in West Africa. From the first consultation to the final fitting, the process was professional, luxurious, and deeply personal. They truly understand the art of tailoring." }
+                ].map((review, i) => (
+                  <TestimonialCard key={i} {...review} />
+                ))}
+              </div>
+            </div>
+
+            {/* Mobile Stats (Visible only on small screens) */}
+            <div className="flex md:hidden justify-between mt-16 pt-12 border-t border-stone-200">
+              <div className="flex flex-col gap-1">
+                <span className="text-2xl font-serif text-stone-900 italic tracking-tighter">1200+</span>
+                <span className="text-[8px] tracking-[0.3em] uppercase text-stone-400">Reviews</span>
+              </div>
+              <div className="flex flex-col gap-1 items-end">
+                <span className="text-2xl font-serif text-stone-900 italic tracking-tighter">10,000+</span>
+                <span className="text-[8px] tracking-[0.3em] uppercase text-stone-400">Happy Clients</span>
+              </div>
+            </div>
           </div>
         </section>
 
