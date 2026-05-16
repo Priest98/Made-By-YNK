@@ -529,7 +529,7 @@ const MainContent: React.FC = () => {
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="absolute inset-0 z-0"
+            className="absolute inset-0 z-10"
           >
             <video 
               autoPlay 
@@ -542,12 +542,12 @@ const MainContent: React.FC = () => {
               <source src="/hero-page.mp4" type="video/mp4" />
             </video>
             <div 
-              className="absolute inset-0 z-10" 
-              style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0.85) 100%)' }} 
+              className="absolute inset-0 z-20" 
+              style={{ background: 'linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 50%, rgba(0, 0, 0, 0.7) 100%)' }} 
             />
           </motion.div>
 
-          <div className="relative w-full max-w-7xl h-full flex flex-col items-center justify-center px-6 md:px-8 z-10">
+          <div className="relative w-full max-w-7xl h-full flex flex-col items-center justify-center px-6 md:px-8 z-30">
 
             <motion.div 
               style={{ y: heroY, opacity: heroOpacity }}
@@ -568,7 +568,7 @@ const MainContent: React.FC = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1, duration: 1.5 }}
-                className="text-sm md:text-lg tracking-[0.22em] md:tracking-[0.4em] uppercase text-white/90 font-light mb-12 max-w-[85%] mx-auto leading-relaxed"
+                className="text-sm md:text-lg tracking-[0.22em] md:tracking-[0.4em] uppercase text-white font-light mb-12 max-w-[85%] mx-auto leading-relaxed"
               >
                 The Architecture of Modern Bespoke<br className="hidden md:block" /> Luxury Fashion
               </motion.p>
@@ -579,7 +579,7 @@ const MainContent: React.FC = () => {
                 transition={{ delay: 1.3, duration: 1.5 }}
                 className="flex flex-col items-center justify-center gap-6 pointer-events-auto"
               >
-                <p className="text-lg md:text-2xl font-serif italic text-white/70 mb-8 tracking-wide font-light">“You dream, we create”</p>
+                <p className="text-lg md:text-2xl font-serif italic text-white mb-8 tracking-wide font-light">“You dream, we create”</p>
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-6 w-full max-w-xs mx-auto">
                   <LuxuryButton href="#collection" className="rounded-full border border-white/30 bg-white/10 backdrop-blur-md text-white hover:bg-white hover:text-black transition-all duration-700 px-10">
                     Book Private
