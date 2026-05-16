@@ -311,7 +311,7 @@ const SectionHeading = ({ title, subtitle }: { title: string; subtitle?: string 
         {subtitle}
       </span>
     </div>
-    <h2 className="text-3xl md:text-6xl font-serif tracking-tight leading-tight md:leading-normal">{title}</h2>
+    <h2 className="text-3xl sm:text-4xl md:text-6xl font-serif tracking-tight leading-tight md:leading-normal">{title}</h2>
   </motion.div>
 );
 
@@ -341,7 +341,7 @@ const CollectionCard = ({ video, title, category, isActive, index, gradient }: {
         boxShadow: isActive ? "0 0 40px rgba(34, 197, 94, 0.2)" : "0 20px 25px -5px rgb(0 0 0 / 0.1)",
       }}
       transition={{ duration: 0.8, ease: luxuryEase }}
-      className={`relative h-[55vh] md:h-[600px] min-w-[75vw] md:min-w-[420px] rounded-[24px] md:rounded-[32px] overflow-hidden flex-shrink-0 group cursor-pointer border transition-colors duration-1000 ${isActive ? 'border-chrome-green/30' : 'border-transparent'}`}
+      className={`relative h-[50vh] sm:h-[55vh] md:h-[600px] min-w-[78vw] sm:min-w-[45vw] md:min-w-[420px] max-w-[290px] sm:max-w-[330px] md:max-w-none rounded-[20px] sm:rounded-[24px] md:rounded-[32px] overflow-hidden flex-shrink-0 group cursor-pointer border transition-colors duration-1000 snap-center ${isActive ? 'border-chrome-green/30' : 'border-transparent'}`}
     >
       {/* Video Backdrop */}
       <video 
@@ -373,9 +373,9 @@ const CollectionCard = ({ video, title, category, isActive, index, gradient }: {
       </div>
 
       {/* Content */}
-      <div className="absolute inset-x-6 bottom-8 md:inset-x-8 md:bottom-10 z-20">
+      <div className="absolute inset-x-4 bottom-6 sm:inset-x-6 sm:bottom-8 md:inset-x-8 md:bottom-10 z-20">
         <span className="text-[8px] md:text-[9px] tracking-[0.4em] uppercase text-white/70 mb-2 block font-light">{category}</span>
-        <h3 className="text-xl md:text-4xl font-serif text-white tracking-tight leading-none italic">{title}</h3>
+        <h3 className="text-lg sm:text-xl md:text-4xl font-serif text-white tracking-tight leading-none italic">{title}</h3>
       </div>
     </motion.div>
   );
@@ -557,11 +557,20 @@ const MainContent: React.FC = () => {
             <SectionHeading title="Premium Collections" subtitle="Agency Grade Selection" />
           </div>
 
-          <div className="relative w-full">
+          <div className="relative w-full overflow-x-hidden">
             <motion.div 
               ref={carouselRef}
-              className="flex gap-4 md:gap-12 overflow-x-auto pb-12 no-scrollbar px-4 md:px-[20%]"
-              style={{ scrollSnapType: 'x mandatory' }}
+              onScroll={() => {
+                if (carouselRef.current) {
+                  const scrollX = carouselRef.current.scrollLeft;
+                  const width = carouselRef.current.offsetWidth;
+                  // Handle responsive width for active index calculation
+                  const itemWidth = width < 640 ? width * 0.78 : width < 1024 ? width * 0.45 : 420;
+                  const index = Math.round(scrollX / itemWidth);
+                  setActiveIndex(index);
+                }
+              }}
+              className="flex gap-3 sm:gap-6 md:gap-12 overflow-x-auto pb-12 no-scrollbar px-[11vw] sm:px-[27.5vw] md:px-[20%] snap-x snap-mandatory"
             >
               {items.map((item, idx) => (
                 <CollectionCard 
