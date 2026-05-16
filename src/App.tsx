@@ -428,27 +428,28 @@ const MainContent: React.FC = () => {
         </motion.div>
 
         {/* Hero Section */}
-        <section className="relative h-screen flex items-center justify-center overflow-hidden px-6 md:px-8">
-          <div className="relative w-full max-w-7xl h-full flex flex-col items-center justify-center">
-            
-            <motion.div 
-              initial={{ opacity: 0, scale: 1.1 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 2.5, ease: luxuryEase }}
-              style={{ y: useTransform(scrollYProgress, [0, 0.5], [0, -50]) }}
-              className="absolute inset-0 md:inset-auto md:left-20 md:top-1/2 md:-translate-y-1/2 md:w-[400px] md:h-[550px] shadow-2xl overflow-hidden group z-0"
+        <section className="relative h-screen flex items-center justify-center overflow-hidden">
+          {/* Main Hero Video - Full Screen on Mobile, Editorial Card on Desktop */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 1.1 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 2.5, ease: luxuryEase }}
+            style={{ y: useTransform(scrollYProgress, [0, 0.5], [0, -50]) }}
+            className="absolute inset-0 md:inset-auto md:left-20 md:top-1/2 md:-translate-y-1/2 md:w-[400px] md:h-[550px] shadow-2xl overflow-hidden group z-0"
+          >
+            <div className="absolute inset-0 bg-luxury-dark/20 z-10 block md:hidden" />
+            <video 
+              autoPlay 
+              loop 
+              muted 
+              playsInline 
+              className="w-full h-full object-cover grayscale-[0.2] opacity-70 md:opacity-80"
             >
-              <div className="absolute inset-0 bg-luxury-dark/20 z-10 block md:hidden" />
-              <video 
-                autoPlay 
-                loop 
-                muted 
-                playsInline 
-                className="w-full h-full object-cover grayscale-[0.2] opacity-70 md:opacity-80"
-              >
-                <source src="/hero-page.mp4#t=,18" type="video/mp4" />
-              </video>
-            </motion.div>
+              <source src="/hero-page.mp4#t=,18" type="video/mp4" />
+            </video>
+          </motion.div>
+
+          <div className="relative w-full max-w-7xl h-full flex flex-col items-center justify-center px-6 md:px-8">
 
             {/* Secondary Floating Image (Desktop Only) */}
             <motion.div 
