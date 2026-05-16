@@ -363,22 +363,8 @@ const SectionHeading = ({ title, subtitle }: { title: string; subtitle?: string 
 const CollectionCard = ({ video, title, category, isActive, index, gradient }: { video: string, title: string, category: string, isActive: boolean, index: number, gradient: string }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const handleMouseEnter = () => {
-    if (videoRef.current) {
-      videoRef.current.play().catch(() => {});
-    }
-  };
-
-  const handleMouseLeave = () => {
-    if (videoRef.current) {
-      videoRef.current.pause();
-    }
-  };
-
   return (
     <motion.div
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
       whileHover={{ scale: isActive ? 1.06 : 1.02 }}
       whileTap={{ scale: 0.98 }}
       animate={{ 
@@ -391,12 +377,13 @@ const CollectionCard = ({ video, title, category, isActive, index, gradient }: {
       {/* Video Backdrop */}
       <video 
         ref={videoRef}
+        autoPlay
         loop 
         muted 
         playsInline 
-        preload="metadata"
+        preload="auto"
         poster="/collection_poster.png"
-        className={`collection-video absolute inset-0 w-full h-full object-cover transition-all duration-1000 ${isActive ? 'saturate-100 scale-105' : 'saturate-[0.8] opacity-90 scale-100'}`}
+        className={`collection-video absolute inset-0 w-full h-full object-cover z-0 transition-all duration-1000 ${isActive ? 'saturate-100 scale-105' : 'saturate-[0.8] opacity-90 scale-100'}`}
         style={{ transition: 'opacity 0.5s ease, transform 1s ease, filter 1s ease' }}
       >
         <source src={video} type="video/mp4" />
@@ -406,7 +393,7 @@ const CollectionCard = ({ video, title, category, isActive, index, gradient }: {
       <div className="absolute bottom-0 inset-x-0 h-[40%] bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
 
       {/* Glassmorphic Play Button */}
-      <div className={`absolute bottom-6 right-6 md:bottom-8 md:right-8 z-30 transition-opacity duration-700 ${isActive ? 'opacity-100' : 'opacity-60'}`}>
+      <div className={`absolute bottom-6 right-6 md:bottom-8 md:right-8 z-20 transition-opacity duration-700 ${isActive ? 'opacity-100' : 'opacity-60'}`}>
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
