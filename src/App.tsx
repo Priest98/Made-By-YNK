@@ -14,6 +14,7 @@ import {
   X, 
   Clock, 
   MapPin, 
+  Plus,
 } from "lucide-react";
 
 // --- Motion System Upgrade (Luxury Behavioral) ---
