@@ -479,8 +479,8 @@ const MainContent: React.FC = () => {
           className="fixed bottom-12 right-6 md:bottom-24 md:right-12 w-16 h-16 md:w-20 md:h-20 rounded-full backdrop-blur-md bg-white/20 border border-white/30 flex items-center justify-center cursor-pointer shadow-sm z-[50]"
         >
           <a href="https://wa.me/+2348184287848" className="text-center leading-none">
-            <div className="text-[7px] md:text-[8px] uppercase tracking-widest text-luxury-dark/60">Book</div>
-            <div className="text-[7px] md:text-[8px] uppercase tracking-widest font-bold text-luxury-dark">Private</div>
+            <div className="text-[7px] md:text-[8px] uppercase tracking-widest text-white/60">Book</div>
+            <div className="text-[7px] md:text-[8px] uppercase tracking-widest font-bold text-white">Private</div>
           </a>
         </motion.div>
 
@@ -499,11 +499,11 @@ const MainContent: React.FC = () => {
               muted 
               playsInline 
               preload="auto"
-              className="w-full h-full object-cover grayscale-[0.2] opacity-40"
+              className="w-full h-full object-cover grayscale-[0.2] opacity-60"
             >
               <source src="/hero-page.mp4" type="video/mp4" />
             </video>
-            <div className="absolute inset-0 bg-gradient-to-b from-luxury-cream/50 via-transparent to-luxury-cream/80" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/40 z-10" />
           </motion.div>
 
           <div className="relative w-full max-w-7xl h-full flex flex-col items-center justify-center px-6 md:px-8 z-10">
@@ -517,7 +517,7 @@ const MainContent: React.FC = () => {
                   initial={{ opacity: 0, y: "100%" }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.7, duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
-                  className="text-luxury-dark text-3xl sm:text-5xl md:text-[140px] font-serif leading-[1.1] md:leading-[0.8] tracking-tight md:tracking-[-0.04em] italic mb-8 select-none"
+                  className="text-white text-3xl sm:text-5xl md:text-[140px] font-serif leading-[1.1] md:leading-[0.8] tracking-tight md:tracking-[-0.04em] italic mb-8 select-none"
                 >
                   Identity & Craft
                 </motion.h1>
@@ -527,7 +527,7 @@ const MainContent: React.FC = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1, duration: 1.5 }}
-                className="text-[10px] md:text-sm tracking-[0.25em] md:tracking-[0.4em] uppercase text-luxury-dark/60 font-light mb-12 max-w-[85%] mx-auto leading-relaxed"
+                className="text-[10px] md:text-sm tracking-[0.25em] md:tracking-[0.4em] uppercase text-white/90 font-light mb-12 max-w-[85%] mx-auto leading-relaxed"
               >
                 The Architecture of Modern Bespoke<br className="hidden md:block" /> Luxury Fashion
               </motion.p>
@@ -538,9 +538,9 @@ const MainContent: React.FC = () => {
                 transition={{ delay: 1.3, duration: 1.5 }}
                 className="flex flex-col items-center justify-center gap-6 pointer-events-auto"
               >
-                <p className="text-lg md:text-2xl font-serif italic text-stone-400 mb-8 tracking-wide font-light">“You dream, we create”</p>
+                <p className="text-lg md:text-2xl font-serif italic text-white/70 mb-8 tracking-wide font-light">“You dream, we create”</p>
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-6 w-full max-w-xs mx-auto">
-                  <LuxuryButton href="#collection" className="rounded-full border border-luxury-dark/20 bg-white/10 backdrop-blur-md text-luxury-dark hover:bg-luxury-dark hover:text-white transition-all duration-700 px-10">
+                  <LuxuryButton href="#collection" className="rounded-full border border-white/30 bg-white/10 backdrop-blur-md text-white hover:bg-white hover:text-black transition-all duration-700 px-10">
                     Book Private
                   </LuxuryButton>
                 </div>
@@ -550,9 +550,9 @@ const MainContent: React.FC = () => {
             {/* Religious Underscore */}
             <motion.div 
               initial={{ opacity: 0 }}
-              animate={{ opacity: 0.3 }}
+              animate={{ opacity: 0.5 }}
               transition={{ delay: 2.2, duration: 2.5 }}
-              className="absolute bottom-10 right-4 md:right-10 text-[9px] tracking-[0.3em] font-light text-luxury-dark"
+              className="absolute bottom-10 right-4 md:right-10 text-[9px] tracking-[0.3em] font-light text-white"
             >
               Psalm 118:23
             </motion.div>
