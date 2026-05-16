@@ -321,9 +321,12 @@ const CollectionCard = ({ video, title, category, isActive, index, gradient }: {
   useEffect(() => {
     if (videoRef.current) {
       if (isActive) {
+        // Play the video when active
         videoRef.current.play().catch(() => {});
       } else {
+        // Pause and RESET to the beginning when inactive
         videoRef.current.pause();
+        videoRef.current.currentTime = 0;
       }
     }
   }, [isActive]);
@@ -336,7 +339,7 @@ const CollectionCard = ({ video, title, category, isActive, index, gradient }: {
         scale: isActive ? 1.04 : 1.0,
         boxShadow: isActive ? "0 0 40px rgba(34, 197, 94, 0.2)" : "0 20px 25px -5px rgb(0 0 0 / 0.1)",
       }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.8, ease: luxuryEase }}
       className={`relative h-[65vh] md:h-[600px] min-w-[85vw] md:min-w-[420px] rounded-[32px] overflow-hidden flex-shrink-0 group cursor-pointer border transition-colors duration-1000 ${isActive ? 'border-chrome-green/30' : 'border-transparent'}`}
     >
       {/* Video Backdrop */}
@@ -345,7 +348,8 @@ const CollectionCard = ({ video, title, category, isActive, index, gradient }: {
         loop 
         muted 
         playsInline 
-        className={`absolute inset-0 w-full h-full object-cover transition-all duration-1000 ${isActive ? 'saturate-100 scale-105' : 'saturate-[0.8] opacity-90 scale-100'}`}
+        preload="metadata"
+        className={`collection-video absolute inset-0 w-full h-full object-cover transition-all duration-1000 ${isActive ? 'saturate-100 scale-105' : 'saturate-[0.8] opacity-90 scale-100'}`}
       >
         <source src={video} type="video/mp4" />
       </video>
