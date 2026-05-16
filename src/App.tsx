@@ -314,27 +314,40 @@ const SectionHeading = ({ title, subtitle }: { title: string; subtitle?: string 
   </motion.div>
 );
 
-const CollectionCard = ({ video, title, category, isActive, index, gradient }: { video: string, title: string, category: string, isActive: boolean, index: number, gradient: string }) => (
-  <motion.div
-    whileHover={{ scale: isActive ? 1.06 : 0.98 }}
-    whileTap={{ scale: 0.95, filter: "brightness(1.2)", boxShadow: "0 0 30px rgba(255,255,255,0.3)" }}
-    animate={{ 
-      scale: isActive ? 1.05 : 0.95,
-      opacity: isActive ? 1 : 0.6,
-    }}
-    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-    className={`relative h-[65vh] md:h-[600px] min-w-[85vw] md:min-w-[420px] rounded-[32px] overflow-hidden shadow-2xl flex-shrink-0 group ${gradient} cursor-pointer`}
-  >
-    {/* Video Backdrop */}
-    <video 
-      autoPlay 
-      loop 
-      muted 
-      playsInline 
-      className={`absolute inset-0 w-full h-full object-cover transition-all duration-1000 ${isActive ? 'scale-105 grayscale-0' : 'scale-100 grayscale-[0.4] opacity-40'}`}
+const CollectionCard = ({ video, title, category, isActive, index, gradient }: { video: string, title: string, category: string, isActive: boolean, index: number, gradient: string }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      if (isActive) {
+        videoRef.current.play().catch(() => {});
+      } else {
+        videoRef.current.pause();
+      }
+    }
+  }, [isActive]);
+
+  return (
+    <motion.div
+      whileHover={{ scale: isActive ? 1.06 : 0.98 }}
+      whileTap={{ scale: 0.95, filter: "brightness(1.2)", boxShadow: "0 0 30px rgba(255,255,255,0.3)" }}
+      animate={{ 
+        scale: isActive ? 1.05 : 0.95,
+        opacity: isActive ? 1 : 0.6,
+      }}
+      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      className={`relative h-[65vh] md:h-[600px] min-w-[85vw] md:min-w-[420px] rounded-[32px] overflow-hidden shadow-2xl flex-shrink-0 group ${gradient} cursor-pointer`}
     >
-      <source src={video} type="video/mp4" />
-    </video>
+      {/* Video Backdrop */}
+      <video 
+        ref={videoRef}
+        loop 
+        muted 
+        playsInline 
+        className={`absolute inset-0 w-full h-full object-cover transition-all duration-1000 ${isActive ? 'scale-105 grayscale-0' : 'scale-100 grayscale-[0.4] opacity-40'}`}
+      >
+        <source src={video} type="video/mp4" />
+      </video>
 
     {/* Gradient Overlay for Text Readability */}
     <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60" />
@@ -657,26 +670,26 @@ const MainContent: React.FC = () => {
         </section>
 
         {/* Reviews Section */}
-        <section id="reviews" className="py-32 md:py-64 bg-luxury-cream relative overflow-hidden">
+        <section id="reviews" className="py-24 md:py-64 bg-luxury-cream relative overflow-x-hidden">
           {/* Subtle Accent Glows */}
-          <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-luxury-gold/10 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2" />
+          <div className="absolute top-0 left-0 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-luxury-gold/10 rounded-full blur-[80px] md:blur-[120px] -translate-x-1/2 -translate-y-1/2" />
           
-          <div className="px-6 md:px-20 max-w-[1920px] mx-auto relative min-h-[900px] flex flex-col justify-center">
+          <div className="px-4 md:px-20 max-w-[1920px] mx-auto relative min-h-[900px] flex flex-col justify-center overflow-x-hidden">
             
             {/* Stars */}
-            <div className="absolute top-0 left-6 md:left-20 flex gap-1 mb-12">
+            <div className="absolute top-0 left-4 md:left-20 flex gap-1 mb-12">
               {[...Array(5)].map((_, i) => (
-                <div key={i} className="w-3 h-3 bg-luxury-gold/40 rounded-full scale-[0.8]" />
+                <div key={i} className="w-2.5 h-2.5 bg-luxury-gold/40 rounded-full scale-[0.8]" />
               ))}
             </div>
 
             {/* Central Overlapping Typography */}
-            <div className="relative flex flex-col items-center justify-center text-center z-10 pointer-events-none mb-12 md:mb-0">
+            <div className="relative flex flex-col items-center justify-center text-center z-10 pointer-events-none mb-12 md:mb-0 w-full overflow-hidden">
               <motion.h2 
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1.5 }}
-                className="text-[20vw] md:text-[10vw] font-serif text-stone-900/5 leading-none italic tracking-tighter"
+                className="text-[18vw] md:text-[10vw] font-serif text-stone-900/5 leading-none italic tracking-tighter whitespace-nowrap"
               >
                 What
               </motion.h2>
@@ -684,7 +697,7 @@ const MainContent: React.FC = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1.5, delay: 0.2 }}
-                className="text-[20vw] md:text-[10vw] font-serif text-stone-900/10 leading-none italic tracking-tighter -mt-[8vw] md:-mt-[5vw] ml-[15vw] md:ml-[10vw]"
+                className="text-[18vw] md:text-[10vw] font-serif text-stone-900/10 leading-none italic tracking-tighter -mt-[6vw] md:-mt-[5vw] ml-[10vw] whitespace-nowrap"
               >
                 they say?
               </motion.h2>
