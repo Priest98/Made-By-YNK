@@ -503,7 +503,10 @@ const MainContent: React.FC = () => {
             >
               <source src="/hero-page.mp4" type="video/mp4" />
             </video>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/40 z-10" />
+            <div 
+              className="absolute inset-0 z-10" 
+              style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0.85) 100%)' }} 
+            />
           </motion.div>
 
           <div className="relative w-full max-w-7xl h-full flex flex-col items-center justify-center px-6 md:px-8 z-10">
@@ -527,7 +530,7 @@ const MainContent: React.FC = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1, duration: 1.5 }}
-                className="text-[10px] md:text-sm tracking-[0.25em] md:tracking-[0.4em] uppercase text-white/90 font-light mb-12 max-w-[85%] mx-auto leading-relaxed"
+                className="text-sm md:text-lg tracking-[0.22em] md:tracking-[0.4em] uppercase text-white/90 font-light mb-12 max-w-[85%] mx-auto leading-relaxed"
               >
                 The Architecture of Modern Bespoke<br className="hidden md:block" /> Luxury Fashion
               </motion.p>
