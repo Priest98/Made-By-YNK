@@ -372,7 +372,8 @@ const CollectionCard = ({ video, title, category, isActive, index, gradient }: {
       <h3 className="text-3xl md:text-4xl font-serif text-white tracking-tight leading-none italic">{title}</h3>
     </div>
   </motion.div>
-);
+    );
+};
 
 // --- Main Content Component ---
 
