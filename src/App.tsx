@@ -318,21 +318,22 @@ const SectionHeading = ({ title, subtitle }: { title: string; subtitle?: string 
 const CollectionCard = ({ video, title, category, isActive, index, gradient }: { video: string, title: string, category: string, isActive: boolean, index: number, gradient: string }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  useEffect(() => {
+  const handleMouseEnter = () => {
     if (videoRef.current) {
-      if (isActive) {
-        // Play the video when active
-        videoRef.current.play().catch(() => {});
-      } else {
-        // Pause and RESET to the beginning when inactive
-        videoRef.current.pause();
-        videoRef.current.currentTime = 0;
-      }
+      videoRef.current.play().catch(() => {});
     }
-  }, [isActive]);
+  };
+
+  const handleMouseLeave = () => {
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
+  };
 
   return (
     <motion.div
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       whileHover={{ scale: isActive ? 1.06 : 1.02 }}
       whileTap={{ scale: 0.98 }}
       animate={{ 
