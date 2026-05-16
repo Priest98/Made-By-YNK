@@ -330,14 +330,14 @@ const CollectionCard = ({ video, title, category, isActive, index, gradient }: {
 
   return (
     <motion.div
-      whileHover={{ scale: isActive ? 1.06 : 0.98 }}
-      whileTap={{ scale: 0.95, filter: "brightness(1.2)", boxShadow: "0 0 30px rgba(255,255,255,0.3)" }}
+      whileHover={{ scale: isActive ? 1.06 : 1.02 }}
+      whileTap={{ scale: 0.98 }}
       animate={{ 
-        scale: isActive ? 1.05 : 0.95,
-        opacity: isActive ? 1 : 0.6,
+        scale: isActive ? 1.04 : 1.0,
+        boxShadow: isActive ? "0 0 40px rgba(34, 197, 94, 0.2)" : "0 20px 25px -5px rgb(0 0 0 / 0.1)",
       }}
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-      className={`relative h-[65vh] md:h-[600px] min-w-[85vw] md:min-w-[420px] rounded-[32px] overflow-hidden shadow-2xl flex-shrink-0 group ${gradient} cursor-pointer`}
+      className={`relative h-[65vh] md:h-[600px] min-w-[85vw] md:min-w-[420px] rounded-[32px] overflow-hidden flex-shrink-0 group cursor-pointer border transition-colors duration-1000 ${isActive ? 'border-chrome-green/30' : 'border-transparent'}`}
     >
       {/* Video Backdrop */}
       <video 
@@ -345,35 +345,35 @@ const CollectionCard = ({ video, title, category, isActive, index, gradient }: {
         loop 
         muted 
         playsInline 
-        className={`absolute inset-0 w-full h-full object-cover transition-all duration-1000 ${isActive ? 'scale-105 grayscale-0' : 'scale-100 grayscale-[0.4] opacity-40'}`}
+        className={`absolute inset-0 w-full h-full object-cover transition-all duration-1000 ${isActive ? 'saturate-100 scale-105' : 'saturate-[0.8] opacity-90 scale-100'}`}
       >
         <source src={video} type="video/mp4" />
       </video>
 
-    {/* Gradient Overlay for Text Readability */}
-    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60" />
+      {/* Subtle Typography Gradient (Bottom 30%) */}
+      <div className="absolute bottom-0 inset-x-0 h-[40%] bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
 
-    {/* Glassmorphic Play Button */}
-    <div className="absolute bottom-8 right-8 z-30">
-      <motion.button
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        className="px-6 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full flex items-center gap-3 text-white text-[10px] tracking-[0.2em] uppercase font-sans group/play shadow-xl"
-      >
-        <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
-          <div className="w-0 h-0 border-t-[4px] border-t-transparent border-l-[7px] border-l-white border-b-[4px] border-b-transparent ml-0.5" />
-        </div>
-        View
-      </motion.button>
-    </div>
+      {/* Glassmorphic Play Button */}
+      <div className={`absolute bottom-8 right-8 z-30 transition-opacity duration-700 ${isActive ? 'opacity-100' : 'opacity-60'}`}>
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          className="px-6 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full flex items-center gap-3 text-white text-[10px] tracking-[0.2em] uppercase font-sans group/play shadow-xl"
+        >
+          <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
+            <div className="w-0 h-0 border-t-[4px] border-t-transparent border-l-[7px] border-l-white border-b-[4px] border-b-transparent ml-0.5" />
+          </div>
+          View
+        </motion.button>
+      </div>
 
-    {/* Content */}
-    <div className="absolute inset-x-8 bottom-10 z-20">
-      <span className="text-[9px] tracking-[0.4em] uppercase text-white/60 mb-2 block font-light">{category}</span>
-      <h3 className="text-3xl md:text-4xl font-serif text-white tracking-tight leading-none italic">{title}</h3>
-    </div>
-  </motion.div>
-    );
+      {/* Content */}
+      <div className="absolute inset-x-8 bottom-10 z-20">
+        <span className="text-[9px] tracking-[0.4em] uppercase text-white/70 mb-2 block font-light">{category}</span>
+        <h3 className="text-3xl md:text-4xl font-serif text-white tracking-tight leading-none italic">{title}</h3>
+      </div>
+    </motion.div>
+  );
 };
 
 // --- Main Content Component ---
