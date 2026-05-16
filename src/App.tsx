@@ -311,7 +311,7 @@ const SectionHeading = ({ title, subtitle }: { title: string; subtitle?: string 
         {subtitle}
       </span>
     </div>
-    <h2 className="text-5xl md:text-6xl font-serif tracking-tight leading-tight md:leading-normal">{title}</h2>
+    <h2 className="text-3xl md:text-6xl font-serif tracking-tight leading-tight md:leading-normal">{title}</h2>
   </motion.div>
 );
 
@@ -340,7 +340,7 @@ const CollectionCard = ({ video, title, category, isActive, index, gradient }: {
         boxShadow: isActive ? "0 0 40px rgba(34, 197, 94, 0.2)" : "0 20px 25px -5px rgb(0 0 0 / 0.1)",
       }}
       transition={{ duration: 0.8, ease: luxuryEase }}
-      className={`relative h-[65vh] md:h-[600px] min-w-[85vw] md:min-w-[420px] rounded-[32px] overflow-hidden flex-shrink-0 group cursor-pointer border transition-colors duration-1000 ${isActive ? 'border-chrome-green/30' : 'border-transparent'}`}
+      className={`relative h-[55vh] md:h-[600px] min-w-[75vw] md:min-w-[420px] rounded-[24px] md:rounded-[32px] overflow-hidden flex-shrink-0 group cursor-pointer border transition-colors duration-1000 ${isActive ? 'border-chrome-green/30' : 'border-transparent'}`}
     >
       {/* Video Backdrop */}
       <video 
@@ -358,23 +358,23 @@ const CollectionCard = ({ video, title, category, isActive, index, gradient }: {
       <div className="absolute bottom-0 inset-x-0 h-[40%] bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
 
       {/* Glassmorphic Play Button */}
-      <div className={`absolute bottom-8 right-8 z-30 transition-opacity duration-700 ${isActive ? 'opacity-100' : 'opacity-60'}`}>
+      <div className={`absolute bottom-6 right-6 md:bottom-8 md:right-8 z-30 transition-opacity duration-700 ${isActive ? 'opacity-100' : 'opacity-60'}`}>
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
-          className="px-6 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full flex items-center gap-3 text-white text-[10px] tracking-[0.2em] uppercase font-sans group/play shadow-xl"
+          className="px-5 py-2.5 md:px-6 md:py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full flex items-center gap-2 md:gap-3 text-white text-[9px] md:text-[10px] tracking-[0.2em] uppercase font-sans group/play shadow-xl"
         >
-          <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
-            <div className="w-0 h-0 border-t-[4px] border-t-transparent border-l-[7px] border-l-white border-b-[4px] border-b-transparent ml-0.5" />
+          <div className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-white/20 flex items-center justify-center">
+            <div className="w-0 h-0 border-t-[3px] md:border-t-[4px] border-t-transparent border-l-[6px] md:border-l-[7px] border-l-white border-b-[3px] md:border-b-[4px] border-b-transparent ml-0.5" />
           </div>
           View
         </motion.button>
       </div>
 
       {/* Content */}
-      <div className="absolute inset-x-8 bottom-10 z-20">
-        <span className="text-[9px] tracking-[0.4em] uppercase text-white/70 mb-2 block font-light">{category}</span>
-        <h3 className="text-3xl md:text-4xl font-serif text-white tracking-tight leading-none italic">{title}</h3>
+      <div className="absolute inset-x-6 bottom-8 md:inset-x-8 md:bottom-10 z-20">
+        <span className="text-[8px] md:text-[9px] tracking-[0.4em] uppercase text-white/70 mb-2 block font-light">{category}</span>
+        <h3 className="text-xl md:text-4xl font-serif text-white tracking-tight leading-none italic">{title}</h3>
       </div>
     </motion.div>
   );
