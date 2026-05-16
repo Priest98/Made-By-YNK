@@ -519,7 +519,7 @@ const MainContent: React.FC = () => {
                   transition={{ delay: 0.7, duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
                   className="text-white text-3xl sm:text-5xl md:text-[140px] font-serif leading-[1.1] md:leading-[0.8] tracking-tight md:tracking-[-0.04em] italic mb-8 select-none"
                 >
-                  Identity & Craft
+                  Made By YNK
                 </motion.h1>
               </div>
 
