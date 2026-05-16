@@ -237,18 +237,20 @@ const Navigation = () => {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1.8, ease: luxuryEase, delay: 0.5 }}
-        className={`fixed top-8 left-1/2 -translate-x-1/2 z-[60] py-4 px-12 rounded-full border border-stone-200/30 backdrop-blur-xl flex items-center gap-16 transition-all duration-[1500ms] ${scrolled ? 'shadow-xl shadow-black/[0.02] bg-luxury-cream/80 py-3' : 'bg-transparent'}`}
+        className={`fixed top-6 md:top-8 left-1/2 -translate-x-1/2 z-[100] py-3 md:py-4 px-8 md:px-12 rounded-full border border-white/20 backdrop-blur-xl flex items-center gap-8 md:gap-16 transition-all duration-[1500ms] shadow-2xl ${
+          scrolled ? 'bg-white/40' : 'bg-white/10'
+        }`}
       >
-        <span className="text-[8px] tracking-[0.6em] uppercase font-light text-luxury-dark/40">Lagos / Atelier</span>
+        <span className="text-[9px] md:text-[10px] tracking-[0.4em] md:tracking-[0.6em] uppercase font-light text-luxury-dark/40 hidden sm:block">Lagos / Atelier</span>
         
-        <h1 className="text-lg font-serif italic tracking-[0.1em] text-luxury-dark/80">YNK</h1>
+        <h1 className="text-base md:text-lg font-serif italic tracking-[0.1em] text-luxury-dark/80">YNK</h1>
 
         <button 
           onClick={() => setIsOpen(true)}
-          className="group flex flex-col items-end cursor-pointer gap-1.5"
+          className="group flex flex-col items-end cursor-pointer gap-1.5 py-2"
         >
-          <div className="w-6 h-[0.5px] bg-luxury-dark/60 group-hover:w-8 transition-all duration-700"></div>
-          <div className="w-4 h-[0.5px] bg-luxury-dark/60 group-hover:w-8 transition-all duration-700"></div>
+          <div className="w-5 h-[0.5px] bg-luxury-dark/60 group-hover:w-8 transition-all duration-700"></div>
+          <div className="w-8 h-[0.5px] bg-luxury-dark/60 group-hover:w-5 transition-all duration-700"></div>
         </button>
       </motion.nav>
 
@@ -449,8 +451,8 @@ const MainContent: React.FC = () => {
     <SmoothScroll key="content">
       <div ref={scrollRef} className="relative min-h-screen selection:bg-stone-200 overflow-x-hidden bg-luxury-cream">
         {/* Background Accents */}
-        <div className="blur-accent -top-48 -left-48 w-96 h-96 bg-luxury-beige" />
-        <div className="blur-accent -bottom-48 -right-48 w-[500px] h-[500px] bg-luxury-accent opacity-40" />
+        <div className="absolute top-0 left-0 w-[40vw] h-[40vw] bg-emerald-100/30 rounded-full blur-[150px] pointer-events-none" />
+        <div className="absolute bottom-0 right-0 w-[40vw] h-[40vw] bg-orange-100/30 rounded-full blur-[150px] pointer-events-none" />
         
         <div className="grain-overlay" />
         <CustomCursor />
@@ -483,85 +485,66 @@ const MainContent: React.FC = () => {
         </motion.div>
 
         {/* Hero Section */}
-        <section className="relative h-screen flex items-center justify-center overflow-hidden">
-          {/* Main Hero Video - Full Screen on Mobile, Editorial Card on Desktop */}
+        <section className="relative h-[100dvh] min-h-[100dvh] flex items-center justify-center overflow-hidden">
+          
+          {/* Main Hero Video */}
           <motion.div 
-            initial={{ opacity: 0, scale: 1.1 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 2.5, ease: luxuryEase }}
-            style={{ y: useTransform(scrollYProgress, [0, 0.5], [0, -50]) }}
-            className="absolute inset-0 md:inset-auto md:left-20 md:top-1/2 md:-translate-y-1/2 md:w-[400px] md:h-[550px] shadow-2xl overflow-hidden group z-10"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="absolute inset-0 z-0"
           >
-            <div className="absolute inset-0 bg-luxury-dark/10 z-20 block md:hidden" />
             <video 
               autoPlay 
               loop 
               muted 
               playsInline 
               preload="auto"
-              className="w-full h-full object-cover grayscale-[0.2] opacity-70 md:opacity-80 transition-opacity duration-700 z-10"
+              className="w-full h-full object-cover grayscale-[0.2] opacity-40"
             >
-              <source src="/hero-page.mp4#t=,18" type="video/mp4" />
+              <source src="/hero-page.mp4" type="video/mp4" />
             </video>
+            <div className="absolute inset-0 bg-gradient-to-b from-luxury-cream/50 via-transparent to-luxury-cream/80" />
           </motion.div>
 
-          <div className="relative w-full max-w-7xl h-full flex flex-col items-center justify-center px-6 md:px-8">
-
-            {/* Secondary Floating Image (Desktop Only) */}
-            <motion.div 
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.8, duration: 1.5 }}
-              style={{ y: useTransform(scrollYProgress, [0, 0.5], [0, -120]) }}
-              className="absolute right-10 top-20 w-[240px] h-[320px] z-10 shadow-xl overflow-hidden border border-white/20 hidden lg:block"
-            >
-              <video 
-                autoPlay 
-                loop 
-                muted 
-                playsInline 
-                preload="auto"
-                className="w-full h-full object-cover opacity-70 transition-opacity duration-700 z-10"
-              >
-                <source src="/hero-page-2.mp4#t=10,28" type="video/mp4" />
-              </video>
-            </motion.div>
+          <div className="relative w-full max-w-7xl h-full flex flex-col items-center justify-center px-6 md:px-8 z-10">
 
             <motion.div 
               style={{ y: heroY, opacity: heroOpacity }}
-              className="relative z-20 text-center pointer-events-none px-4"
+              className="relative text-center pointer-events-none px-4"
             >
               <div className="overflow-hidden mb-4">
                 <motion.h1 
                   initial={{ opacity: 0, y: "100%" }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.7, duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
-                  className="text-luxury-dark text-5xl sm:text-6xl md:text-[140px] font-serif leading-[0.9] md:leading-[0.8] tracking-[-0.04em] italic mb-6 select-none"
+                  className="text-luxury-dark text-3xl sm:text-5xl md:text-[140px] font-serif leading-[1.1] md:leading-[0.8] tracking-tight md:tracking-[-0.04em] italic mb-8 select-none"
                 >
-                  <span className="block">Made by</span> 
-                  <span className="block"> YNK</span>
+                  Identity & Craft
                 </motion.h1>
               </div>
+
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1, duration: 1.5 }}
+                className="text-[10px] md:text-sm tracking-[0.25em] md:tracking-[0.4em] uppercase text-luxury-dark/60 font-light mb-12 max-w-[85%] mx-auto leading-relaxed"
+              >
+                The Architecture of Modern Bespoke<br className="hidden md:block" /> Luxury Fashion
+              </motion.p>
               
               <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.5, duration: 1.5 }}
-                className="flex justify-center items-center gap-4 md:gap-6 mb-12"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.3, duration: 1.5 }}
+                className="flex flex-col items-center justify-center gap-6 pointer-events-auto"
               >
-                <span className="text-[9px] md:text-[11px] tracking-[0.4em] md:tracking-[0.5em] uppercase font-light text-stone-500/80">Bespoke</span>
-                <div className="w-8 md:w-10 h-[0.5px] bg-luxury-dark opacity-20" />
-                <span className="text-[9px] md:text-[11px] tracking-[0.4em] md:tracking-[0.5em] uppercase font-light text-stone-500/80">Bridal</span>
-              </motion.div>
-
-              <div className="pointer-events-auto">
-                <p className="text-lg md:text-2xl font-serif italic text-stone-400 mb-16 tracking-wide font-light">“You dream, we create”</p>
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-8 w-full max-w-xs mx-auto">
-                  <LuxuryButton href="#collection">
-                    Explore Collection
+                <p className="text-lg md:text-2xl font-serif italic text-stone-400 mb-8 tracking-wide font-light">“You dream, we create”</p>
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-6 w-full max-w-xs mx-auto">
+                  <LuxuryButton href="#collection" className="rounded-full border border-luxury-dark/20 bg-white/10 backdrop-blur-md text-luxury-dark hover:bg-luxury-dark hover:text-white transition-all duration-700 px-10">
+                    Book Private
                   </LuxuryButton>
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
 
             {/* Religious Underscore */}
