@@ -683,9 +683,8 @@ const MainContent: React.FC = () => {
 
                 <video 
                   ref={founderVideoRef}
-                  autoPlay
+                  controls
                   loop 
-                  muted
                   playsInline 
                   preload="auto"
                   className="w-full h-full object-cover transition-all duration-[3s] ease-out grayscale-[0.1] group-hover:scale-105"
